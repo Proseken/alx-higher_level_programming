@@ -2,10 +2,8 @@
 """ a python file that contains the class definition of a City class
 """
 import sys
-from sqlalchemy.orm import sessionmaker
-import sqlalchemy
 from sqlalchemy import Column, Integer, String, ForeignKey
-from model_state import Base, State
+from relationship_state import Base
 
 
 class City(Base):

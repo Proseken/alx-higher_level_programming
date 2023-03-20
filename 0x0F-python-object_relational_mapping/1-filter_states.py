@@ -17,5 +17,4 @@ if __name__  ==  "__main__":
     for names in cur:
         print(names)
     cur.close()
-    db.close()
-    
+    db.close()    
