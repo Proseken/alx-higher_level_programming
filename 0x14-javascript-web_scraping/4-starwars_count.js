@@ -1,20 +1,29 @@
 #!/usr/bin/node
-// prints the title of a Star Wars movie
-const request = require('request');
-const apiUrl = process.argv[2];
 
-request.get(apiUrl, (error, response, body) => {
+const request = require('request');
+
+if (process.argv.length !== 3) {
+  process.exit();
+}
+const id = 18;
+
+request(process.argv[2], function (error, response, body) {
   if (error) {
-    console.error(error);
-    return;
+    console.log(error);
+    process.exit();
+  } else if (response.statusCode !== 200) {
+    process.exit();
   }
-  const films = JSON.parse(body).results;
+
   let count = 0;
-  films.forEach((film) => {
-    if (film.characters.includes(
-      'https://swapi-api.alx-tools.com/api/people/18/')) {
-      count++;
+  const resp = JSON.parse(body);
+  const results = resp.results;
+  for (const episode of results) {
+    for (const character of episode.characters) {
+      if (character.indexOf(id) !== -1) {
+        count++;
+      }
     }
-  });
+  }
   console.log(count);
 });
